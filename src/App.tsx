@@ -28,7 +28,7 @@ const TRACKS = [
   { 
     id: 'digital-marketing', 
     title: 'Digital Marketing', 
-    price: '8,000',
+    price: '12,000',
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuD248oJVAzdeXI2kLvBaWoj_is3NUXPlatIotyBBxEdgmYyIB_25N--dEieT6bQQe82oyFrnaiisfRhCs482RwPnIfH4IVKNS8DqNSJji-k4aSo2OVWd1p2j0ww_uRYkLLjDnK8R7KQwWFXvd_-w4q66-TDsKV9iNbXXxRIhKg4N7mdr3w3v-BdVwlDqQNAWA9xjXIR1M_Bp7Qage5oKHnj7NlNDH0D3BTjh9vfUr50Cu0_faTR4o3iixR3_sFtms-tq066fI-ngR4',
     description: 'Learn to navigate the complex ecosystem of performance marketing, social strategy, and SEO in the modern era.',
     points: ['AI-Driven Content Strategy', 'Search Engine Performance', 'Advanced Analytics & ROI', 'Social Media Commerce']
@@ -110,7 +110,7 @@ export default function App() {
     email: 'Punjabimahak257@gmail.com',
     phone: '8005982457',
     course: 'Digital Marketing',
-    price: '8,000',
+    price: '12,000',
     admissionId: 'NM-2026-X8842',
     dateJoined: '24 April 2026'
   });
@@ -132,7 +132,7 @@ export default function App() {
         email: 'Punjabimahak257@gmail.com',
         phone: '8005982457',
         course: 'Digital Marketing',
-        price: '8,000',
+        price: '12,000',
         admissionId: 'NM-2026-X8842',
         dateJoined: '24 April 2026'
       });
@@ -200,9 +200,68 @@ export default function App() {
             className="md:hidden"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
-            <Menu className="w-6 h-6" />
+            {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
         </div>
+
+        {/* Mobile Menu */}
+        <AnimatePresence>
+          {isMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              className="md:hidden bg-white border-b border-slate-100 overflow-hidden"
+            >
+              <div className="flex flex-col p-6 gap-4">
+                {['About', 'Courses', 'Schedule', 'Faculty'].map((item) => (
+                  <a 
+                    key={item} 
+                    href={`#${item.toLowerCase()}`} 
+                    onClick={() => setIsMenuOpen(false)}
+                    className="text-lg font-bold text-slate-800 hover:text-primary py-2 border-b border-slate-50 last:border-0"
+                  >
+                    {item}
+                  </a>
+                ))}
+                
+                {isLoggedIn ? (
+                  <div className="flex flex-col gap-4 mt-4 pt-4 border-t border-slate-100">
+                    <button 
+                      onClick={() => {
+                        setActiveView(activeView === 'landing' ? 'dashboard' : 'landing');
+                        setIsMenuOpen(false);
+                      }}
+                      className="bg-red-50 text-primary border border-red-100 font-bold px-5 py-4 rounded-xl flex items-center justify-center gap-3"
+                    >
+                      <User className="w-5 h-5" />
+                      {activeView === 'landing' ? 'Open Dashboard' : 'Back to Home'}
+                    </button>
+                    <button 
+                      onClick={() => {
+                        setIsLoggedIn(false);
+                        setIsMenuOpen(false);
+                      }}
+                      className="text-secondary font-bold py-4 flex items-center justify-center gap-3"
+                    >
+                      <LogOut className="w-5 h-5" /> Logout
+                    </button>
+                  </div>
+                ) : (
+                  <button 
+                    onClick={() => {
+                      setIsLoginModalOpen(true);
+                      setIsMenuOpen(false);
+                    }}
+                    className="bg-primary text-white py-4 rounded-xl font-bold shadow-lg shadow-red-900/20 active:scale-95 transition-all mt-4"
+                  >
+                    Login to Student Portal
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </header>
 
       <main>
@@ -659,7 +718,7 @@ export default function App() {
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] font-bold uppercase tracking-widest text-secondary">Preferred Workshop</label>
                     <select 
-                      defaultValue="Digital Marketing (₹8,000)"
+                      defaultValue="Digital Marketing (₹12,000)"
                       className="p-3 bg-surface border border-outline-variant rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all text-sm appearance-none"
                     >
                       {TRACKS.map(t => <option key={t.id} value={`${t.title} (₹${t.price})`}>{t.title} (₹{t.price})</option>)}
