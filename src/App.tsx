@@ -305,7 +305,7 @@ export default function App() {
               </div>
               <h1 className="text-5xl md:text-6xl font-extrabold leading-[1.1] mb-6 text-on-surface">
                 NMIMS 5-Day <br />
-                <span className="text-primary">Certification Program</span>
+                <span className="text-primary">Workshop Program</span>
               </h1>
               <p className="text-lg text-on-surface-variant mb-10 max-w-lg leading-relaxed">
                 Master the Future of Digital Marketing & Business Skills. An intensive, industry-aligned immersive experience designed for tomorrow's leaders.
