@@ -103,6 +103,7 @@ export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const [activeView, setActiveView] = useState<'landing' | 'dashboard'>('landing');
+  const [policyType, setPolicyType] = useState<'privacy' | 'terms' | 'academic' | null>(null);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const [currentUser, setCurrentUser] = useState<any>({
     name: 'Mahak Punjabi',
@@ -120,7 +121,7 @@ export default function App() {
     phone: ''
   });
 
-  const NMIMS_LOGO = "https://www.nmims.edu/images/logo.png";
+  const LOGO_SRC = "https://upload.wikimedia.org/wikipedia/en/thumb/f/f6/NMIMS_logo.png/640px-NMIMS_logo.png";
 
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
@@ -155,7 +156,7 @@ export default function App() {
       <header className="sticky top-0 w-full z-50 bg-white border-b border-surface-container shadow-[0px_4px_20px_rgba(0,0,0,0.05)]">
         <div className="max-w-[1280px] mx-auto px-6 h-20 flex justify-between items-center">
           <div className="flex items-center gap-3">
-            <img src={NMIMS_LOGO} alt="NMIMS Logo" className="h-10 w-auto" referrerPolicy="no-referrer" />
+            <img src={LOGO_SRC} alt="NMIMS Logo" className="h-12 w-auto object-contain" referrerPolicy="no-referrer" />
           </div>
 
           <nav className="hidden md:flex items-center gap-10">
@@ -222,7 +223,7 @@ export default function App() {
                     <h2 className="text-2xl font-bold mb-1">Fee Receipt</h2>
                     <p className="text-white/60 text-xs">Narsee Monjee Institute of Management Studies (Mumbai Campus)</p>
                   </div>
-                  <img src={NMIMS_LOGO} alt="NMIMS Logo" className="h-12 w-auto invert brightness-0 grayscale opacity-40" referrerPolicy="no-referrer" />
+                  <img src={LOGO_SRC} alt="NMIMS Logo" className="h-14 w-auto invert brightness-0 grayscale opacity-40 ml-auto" referrerPolicy="no-referrer" />
                 </div>
                 
                 <div className="p-8">
@@ -352,37 +353,55 @@ export default function App() {
         </section>
 
         {/* About Section */}
-        <section id="about" className="py-24 bg-white">
-          <div className="max-w-[1280px] mx-auto px-6">
+        <section id="about" className="py-24 bg-white relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-50/50 -z-0 skew-x-12 transform translate-x-20" />
+          <div className="max-w-[1280px] mx-auto px-6 relative z-10">
             <div className="grid lg:grid-cols-2 gap-20 items-center">
               <motion.div {...fadeIn}>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Where Academic Excellence Meets <br /><span className="text-primary">Corporate Reality</span>
+                <div className="inline-block bg-primary/10 text-primary px-4 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest mb-4">Established 1981</div>
+                <h2 className="text-3xl md:text-5xl font-extrabold mb-8 leading-tight">
+                  Academic Legacy <br />
+                  <span className="text-primary">& Practical Innovation</span>
                 </h2>
-                <div className="w-16 h-1.5 bg-primary mb-8" />
-                <p className="text-on-surface-variant mb-6 leading-relaxed">
-                  For over four decades, Narsee Monjee Institute of Management Studies (NMIMS) has stood as a beacon of academic rigor and industry relevance. Our 5-Day Certification Program is synthesized to bridge the gap between theoretical knowledge and the fast-paced demands of the modern economy.
-                </p>
-                <p className="text-on-surface-variant leading-relaxed">
-                  Participants will engage in deep-dive sessions led by faculty who are practitioners first. Whether you are a working professional or a student, this program offers the credentials and the competence to excel in a digital-first world.
-                </p>
+                <div className="space-y-6 text-on-surface-variant leading-relaxed">
+                  <p>
+                    SVKM's Narsee Monjee Institute of Management Studies (NMIMS) was established in 1981 and has since evolved into a globally reputed university. Our Mumbai campus is the heart of our academic ecosystem, fostering leadership through rigorous discipline and innovative thinking.
+                  </p>
+                  <p>
+                    The 5-Day Certification Workshop is designed for those who seek high-velocity career growth. We bring together distilled industry insights, hands-on tool mastery, and networking with a pedigree that only a top-tier institution can provide.
+                  </p>
+                  <div className="bg-red-50 p-6 rounded-2xl border-l-4 border-primary">
+                    <h4 className="text-primary font-bold text-sm uppercase tracking-widest mb-2">Our Vision</h4>
+                    <p className="text-xs text-secondary italic">"To be a globally admired university by creating an innovative and rigorous academic ecosystem that develops transformative leaders for business and society."</p>
+                  </div>
+                  <div className="flex items-center gap-4 pt-4">
+                    <div className="flex -space-x-3">
+                      {[1,2,3,4].map(i => (
+                        <div key={i} className="w-10 h-10 rounded-full border-2 border-white bg-slate-200 overflow-hidden">
+                          <img src={`https://i.pravatar.cc/100?img=${i+10}`} alt="Student" />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="text-xs font-bold text-secondary">Joined by 12,000+ Alumni globally</div>
+                  </div>
+                </div>
               </motion.div>
 
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-2 gap-6">
                 {[
-                  { label: 'Years of Excellence', value: '40+' },
-                  { label: 'Corporate Partners', value: '500+' },
-                  { label: 'Global Alumni', value: '15k+' },
-                  { label: 'NAAC Accreditation', value: 'A+' }
+                  { label: 'Category 1 University', value: 'MHRD' },
+                  { label: 'NAAC Accreditation', value: 'A+' },
+                  { label: 'Global Ranking', value: 'Top 100' },
+                  { label: 'Avg Salary Hike', value: '45%' }
                 ].map((stat, i) => (
                   <motion.div 
                     key={i}
                     {...fadeIn}
                     transition={{ delay: i * 0.1 }}
-                    className="p-8 bg-surface-container rounded-xl border border-outline-variant hover:border-primary transition-colors"
+                    className="p-8 bg-white shadow-xl shadow-black/5 rounded-2xl border border-surface-container flex flex-col items-center text-center group hover:bg-primary transition-all duration-500"
                   >
-                    <div className="text-3xl font-extrabold text-primary mb-2 font-headline">{stat.value}</div>
-                    <div className="text-sm font-semibold uppercase text-secondary tracking-widest">{stat.label}</div>
+                    <div className="text-3xl font-black text-primary mb-2 font-headline group-hover:text-white transition-colors">{stat.value}</div>
+                    <div className="text-[10px] font-bold uppercase text-secondary tracking-widest group-hover:text-white/70 transition-colors">{stat.label}</div>
                   </motion.div>
                 ))}
               </div>
@@ -667,9 +686,9 @@ export default function App() {
       <footer className="bg-slate-950 text-white pt-24 pb-12 border-t border-white/5">
         <div className="max-w-[1280px] mx-auto px-6 grid md:grid-cols-2 lg:grid-cols-4 gap-12 mb-20">
           <div className="lg:col-span-1">
-            <img src={NMIMS_LOGO} alt="NMIMS Logo" className="h-12 w-auto mb-6 invert brightness-0 grayscale" />
+            <img src={LOGO_SRC} alt="NMIMS Logo" className="h-16 w-auto mb-6 invert brightness-0 grayscale" />
             <p className="text-slate-400 text-sm leading-relaxed mb-8">
-              A premier university committed to providing students with the skills required to navigate the challenges of the corporate world.
+              Official certification workshop portal for Narsee Monjee Institute of Management Studies. Empowering the next generation of global business leaders.
             </p>
             <div className="flex gap-4">
               {[Facebook, Twitter, Linkedin].map((Icon, i) => (
@@ -689,12 +708,12 @@ export default function App() {
           </div>
 
           <div>
-            <h5 className="font-bold text-sm mb-6 uppercase tracking-widest text-slate-200">Support</h5>
+            <h5 className="font-bold text-sm mb-6 uppercase tracking-widest text-slate-200">Legal Policies</h5>
             <ul className="space-y-4 text-slate-400 text-sm">
-              <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Contact Us</a></li>
-              <li><a href="#register" className="hover:text-primary transition-colors">Registration</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">FAQ</a></li>
+              <li><button onClick={() => setPolicyType('privacy')} className="hover:text-primary transition-colors">Privacy Policy</button></li>
+              <li><button onClick={() => setPolicyType('terms')} className="hover:text-primary transition-colors">Terms & Conditions</button></li>
+              <li><button onClick={() => setPolicyType('academic')} className="hover:text-primary transition-colors">Academic Integrity</button></li>
+              <li><a href="#register" className="hover:text-primary transition-colors">Registration Hub</a></li>
             </ul>
           </div>
 
@@ -781,6 +800,92 @@ export default function App() {
                 <p className="mt-8 text-center text-xs text-slate-400">
                   By logging in, you agree to the university's academic policies and digital code of conduct.
                 </p>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {policyType && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+            <motion.div 
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setPolicyType(null)}
+              className="absolute inset-0 bg-slate-900/80 backdrop-blur-md"
+            />
+            <motion.div 
+              initial={{ y: 50, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 50, opacity: 0 }}
+              className="bg-white rounded-3xl w-full max-w-2xl relative z-10 overflow-hidden max-h-[80vh] flex flex-col"
+            >
+              <div className="p-8 border-b border-slate-100 flex justify-between items-center bg-slate-50">
+                <h3 className="text-2xl font-bold uppercase tracking-tighter">
+                  {policyType === 'privacy' ? 'Privacy Policy' : policyType === 'terms' ? 'Terms & Conditions' : 'Academic Integrity'}
+                </h3>
+                <button onClick={() => setPolicyType(null)} className="p-2 hover:bg-white rounded-full transition-colors border border-slate-200">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="p-8 overflow-y-auto prose prose-slate prose-sm max-w-none">
+                <p className="font-bold text-primary mb-4 italic">Last Updated: April 2026</p>
+                {policyType === 'privacy' ? (
+                  <div className="space-y-6">
+                    <section>
+                      <h4 className="font-bold text-slate-800">1. Information Collection</h4>
+                      <p>We collect personal information such as your name, email, and academic background solely for the purpose of workshop enrollment and certification processing at NMIMS Mumbai.</p>
+                    </section>
+                    <section>
+                      <h4 className="font-bold text-slate-800">2. Usage of Data</h4>
+                      <p>Your data is used to generate admission IDs, fee receipts, and digital certificates. We do not share student information with third-party marketing agencies.</p>
+                    </section>
+                    <section>
+                      <h4 className="font-bold text-slate-800">3. Security</h4>
+                      <p>All transaction data is encrypted. We implement industry-standard protocols to protect your academic records from unauthorized access.</p>
+                    </section>
+                  </div>
+                ) : policyType === 'terms' ? (
+                  <div className="space-y-6">
+                    <section>
+                      <h4 className="font-bold text-slate-800">1. Enrollment Eligibility</h4>
+                      <p>By registering, you confirm that the information provided is accurate and you are a student or professional seeking skill enhancement in the selected workshop track.</p>
+                    </section>
+                    <section>
+                      <h4 className="font-bold text-slate-800">2. Attendance Policy</h4>
+                      <p>A minimum of 80% attendance is mandatory across the 5 days to be eligible for the NMIMS Certification of Completion.</p>
+                    </section>
+                    <section>
+                      <h4 className="font-bold text-slate-800">3. Fee & Refund</h4>
+                      <p>The workshop fee is non-refundable 48 hours prior to the workshop start date. Any disputes are subject to the jurisdiction of courts in Mumbai.</p>
+                    </section>
+                  </div>
+                ) : (
+                  <div className="space-y-6">
+                    <section>
+                      <h4 className="font-bold text-slate-800">1. Code of Conduct</h4>
+                      <p>Students must maintain the highest standards of academic honesty. Plagiarism or unauthorized sharing of workshop materials is strictly prohibited.</p>
+                    </section>
+                    <section>
+                      <h4 className="font-bold text-slate-800">2. Intellectual Property</h4>
+                      <p>All training materials, case studies, and proprietary tools provided during the 5-day session are the intellectual property of SVKM'S NMIMS.</p>
+                    </section>
+                    <section>
+                      <h4 className="font-bold text-slate-800">3. Disciplinary Action</h4>
+                      <p>Failure to comply with the code of conduct may result in immediate expulsion from the workshop without refund and withholding of the certificate.</p>
+                    </section>
+                  </div>
+                )}
+              </div>
+              <div className="p-8 bg-slate-50 border-t border-slate-100 flex justify-end">
+                <button 
+                  onClick={() => setPolicyType(null)}
+                  className="bg-primary text-white px-8 py-3 rounded-xl font-bold hover:shadow-lg transition-all"
+                >
+                  I Understand
+                </button>
               </div>
             </motion.div>
           </div>
